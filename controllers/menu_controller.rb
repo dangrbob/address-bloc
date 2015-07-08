@@ -96,8 +96,8 @@ class MenuController
       main_menu
     else
      system "clear"
-     puts "\n#{selection} is not a valid input\n"
-     entries_submenu(entry)
+     puts "\n#{selection} is not a valid input\n\n"
+     entry_submenu(entry)
     end 
   end    
   
