@@ -18,4 +18,4 @@ class AddressBook
     @entries.insert(index, Entry.new(name, phone, email))
   end  
 
-end  
+end
