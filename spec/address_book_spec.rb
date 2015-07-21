@@ -9,6 +9,13 @@ RSpec.describe AddressBook do
     expect(entry.email).to eql expected_email
   end
 
+  def search_csv (s_import, s_term, s_name, s_phone, s_email)
+    book.import_from_csv(s_import)
+    entry = book.binary_search(s_term)
+    expect entry.instance_of?(Entry)
+    check_entry(entry, s_name, s_phone, s_email)
+  end
+
   context "attributes" do
     it "should respond to entries" do
       expect(book).to respond_to(:entries)
@@ -80,5 +87,40 @@ RSpec.describe AddressBook do
     end
 
   end  
+
+  context "#binary_search" do
+    it "searches AddressBook for a non-existent entry" do  
+      book.import_from_csv("entries.csv")
+      entry = book.binary_search("Dan")
+      expect(entry).to be_nil
+    end
+
+    it "searches AddressBook for Bill" do
+      search_csv("entries.csv", "Bill", "Bill", "555-555-4854", "bill@blocmail.com")
+    end 
+
+    it "searches AddressBook for Bob" do
+      search_csv("entries.csv", "Bob", "Bob", "555-555-5415", "bob@blocmail.com")
+    end  
+
+    it "searches AddressBook for Joe" do
+      search_csv("entries.csv", "Joe", "Joe", "555-555-3660", "joe@blocmail.com")
+    end  
+
+    it "searches AddressBook for Sally" do
+      search_csv("entries.csv", "Sally", "Sally", "555-555-4646", "sally@blocmail.com")
+    end 
+
+    it "searches AddressBook for Sussie" do
+      search_csv("entries.csv", "Sussie", "Sussie", "555-555-2036", "sussie@blocmail.com")
+    end 
+
+    it "searches AddressBook for Billy" do
+      book.import_from_csv("entries.csv")
+      entry = book.binary_search("Billy")
+      expect(entry).to be_nil
+    end
+  
+  end    
 
 end
