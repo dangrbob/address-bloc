@@ -13,7 +13,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entires from a CSV"
-    puts "5 - Exit"
+    puts "5 - Vanish"
+    puts "6 - Exit"
     print "Enter your selection: "
     selection =gets.to_i
     
@@ -35,6 +36,10 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      vanish
+      main_menu        
+    when 6
       puts "Good-bye!"
       exit(0)
     else
@@ -82,6 +87,16 @@ class MenuController
     else
       puts "No match found for #{name}"  
     end  
+  end
+  
+  def vanish #deletes all entries
+    system "clear"
+    while @address_book.entries.count > 0
+      entry=@address_book.entries[0]
+      delete_entry(entry)
+    end  
+    system "clear"
+    puts "Poof! All the entries in your address book have disappeared"    
   end
 
   def search_submenu(entry)
